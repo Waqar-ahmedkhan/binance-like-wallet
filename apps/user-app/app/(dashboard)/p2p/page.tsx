@@ -3,7 +3,8 @@
 import { Button } from "@repo/ui/button";
 import { Card } from "@repo/ui/card";
 import { TextInput } from "@repo/ui/textinput";
-import { useState } from "react";
+import { CreditCard, Lock, Wallet } from 'lucide-react';
+import React, { useState } from "react";
 import { SendCard } from "../../../components/SendCard";
 
 // Mock data for demonstration purposes
@@ -18,6 +19,18 @@ const contacts = [
   { id: 2, name: 'Fatima Khan', number: '03009876543' },
   { id: 3, name: 'Muhammad Azeem', number: '03331234567' },
 ];
+
+const BalanceRow = ({ title, value, icon }: { title: string; value: number; icon: React.ReactNode }) => (
+  <div className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0">
+    <div className="flex items-center space-x-3">
+      <div className="p-2 bg-green-100 rounded-full">
+        {icon}
+      </div>
+      <span className="font-medium text-gray-700">{title}</span>
+    </div>
+    <div className="text-lg font-semibold">Rs. {value.toLocaleString()}</div>
+  </div>
+);
 
 export default function P2PDashboard() {
   const [activeTab, setActiveTab] = useState('send');
@@ -109,7 +122,16 @@ export default function P2PDashboard() {
         </div>
 
         <div className="col-span-1">
-          <Card title="Quick Contacts">
+          <Card>
+            <div className="p-4">
+              <h2 className="text-xl font-bold mb-4 text-gray-800">Balance</h2>
+              <BalanceRow title="Unlocked Balance" value={50000} icon={<Wallet className="text-green-500" size={20} />} />
+              <BalanceRow title="Locked Balance" value={10000} icon={<Lock className="text-green-500" size={20} />} />
+              <BalanceRow title="Total Balance" value={60000} icon={<CreditCard className="text-green-500" size={20} />} />
+            </div>
+          </Card>
+
+          <Card title="Quick Contacts" className="mt-6">
             <div className="space-y-2">
               {contacts.map((contact) => (
                 <button
