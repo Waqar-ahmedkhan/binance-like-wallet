@@ -47,17 +47,22 @@ export const AddMoney: React.FC = () => {
   };
 
   return (
-    <Card>
-      <div className="p-6">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">Add Money</h2>
-        <div className="space-y-6">
-          <TextInput
-            label="Amount (PKR)"
-            placeholder="Enter amount"
-            value={amount}
-            onChange={handleAmountChange}
-            error={error}
-          />
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-4">
+      <Card className="w-full max-w-xl bg-white shadow-md rounded-lg overflow-hidden">
+        <div className="bg-blue-600 p-6">
+          <h2 className="text-2xl font-semibold text-white">Add Money to Your Account</h2>
+        </div>
+        <div className="p-6 space-y-6">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Amount (PKR)</label>
+            <TextInput
+              placeholder="Enter amount"
+              value={amount}
+              onChange={handleAmountChange}
+              error={error}
+              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
+            />
+          </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">Select Bank</label>
             <Select
@@ -67,25 +72,26 @@ export const AddMoney: React.FC = () => {
                 value: bank.name
               }))}
               value={selectedBank.name}
+              className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200"
             />
           </div>
           {error && (
-            <div className="flex items-center text-red-600">
-              <AlertCircle size={16} className="mr-2" />
+            <div className="flex items-center text-red-600 bg-red-50 p-3 rounded-md">
+              <AlertCircle size={20} className="mr-2 flex-shrink-0" />
               <span className="text-sm">{error}</span>
             </div>
           )}
-          <div className="flex justify-center">
+          <div>
             <Button
               onClick={handleAddMoney}
               disabled={!!error || !amount}
-              className="w-full md:w-auto px-6 py-2"
+              className="w-full py-3 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Add Money
+              Proceed to Add Money
             </Button>
           </div>
         </div>
-      </div>
-    </Card>
+      </Card>
+    </div>
   );
 };

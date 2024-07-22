@@ -15,7 +15,7 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ href, title, icon }) =
   const pathname = usePathname();
   const selected = pathname === href;
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
       event.preventDefault();
       router.push(href);
@@ -40,7 +40,9 @@ export const SidebarItem: React.FC<SidebarItemProps> = ({ href, title, icon }) =
         onKeyDown={handleKeyDown}
       >
         <div className="mr-3 text-xl">
-          {icon}
+          {React.cloneElement(icon as React.ReactElement, {
+            className: selected ? "text-purple-700" : "text-slate-600"
+          })}
         </div>
         <div className={`font-medium ${selected ? "text-purple-700" : "text-slate-600"}`}>
           {title}
